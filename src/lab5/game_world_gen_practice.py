@@ -1,4 +1,4 @@
-'''
+"""
 Lab 5: PCG and Project Lab
 
 This a combined procedural content generation and project lab. 
@@ -13,7 +13,7 @@ build a mindset of writing modular code.
 This is the first time you will be creating code that you may use later in the project.
 So, please try to write good modular code that you can reuse later.
 You can always write non-modular code for the first time and then refactor it later.
-'''
+"""
 
 import sys
 import pygame
@@ -22,13 +22,14 @@ import numpy as np
 from landscape import get_landscape
 
 from pathlib import Path
-sys.path.append(str((Path(__file__)/'..'/'..').resolve().absolute()))
+
+sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 
 
 # TODO: Demo blittable surface helper function
 
-''' Create helper functions here '''
+""" Create helper functions here """
 
 if __name__ == "__main__":
     pygame.init()
@@ -38,18 +39,30 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(size)
     landscape = get_landscape(size)
     print("Created a landscape of size", landscape.shape)
-    pygame_surface = pygame.surfarray.make_surface(landscape[:, :, :3]) 
+    pygame_surface = pygame.surfarray.make_surface(landscape[:, :, :3])
 
-    city_names = ['Morkomasto', 'Morathrad', 'Eregailin', 'Corathrad', 'Eregarta',
-                  'Numensari', 'Rhunkadi', 'Londathrad', 'Baernlad', 'Forthyr']
-    city_locations = [] 
+    city_names = [
+        "Morkomasto",
+        "Morathrad",
+        "Eregailin",
+        "Corathrad",
+        "Eregarta",
+        "Numensari",
+        "Rhunkadi",
+        "Londathrad",
+        "Baernlad",
+        "Forthyr",
+    ]
+    city_locations = []
     routes = []
 
-    ''' Setup cities and routes in here'''
+    """ Setup cities and routes in here"""
 
-    city_locations_dict = {name: location for name, location in zip(city_names, city_locations)}
+    city_locations_dict = {
+        name: location for name, location in zip(city_names, city_locations)
+    }
     random.shuffle(routes)
-    routes = routes[:10] 
+    routes = routes[:10]
 
     while True:
         for event in pygame.event.get():
@@ -59,8 +72,8 @@ if __name__ == "__main__":
         screen.fill(black)
         screen.blit(pygame_surface, (0, 0))
 
-        ''' draw cities '''
+        """ draw cities """
 
-        ''' draw first 10 routes '''
+        """ draw first 10 routes """
 
         pygame.display.flip()
