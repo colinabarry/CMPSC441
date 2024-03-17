@@ -57,6 +57,8 @@ if __name__ == "__main__":
     routes = []
 
     """ Setup cities and routes in here"""
+    city_locations = get_randomly_spread_cities(size, len(city_names))
+    routes = get_routes(city_locations)
 
     city_locations_dict = {
         name: location for name, location in zip(city_names, city_locations)
@@ -73,7 +75,17 @@ if __name__ == "__main__":
         screen.blit(pygame_surface, (0, 0))
 
         """ draw cities """
+        for city in city_locations_dict.values():
+            pygame.draw.circle(screen, (255, 0, 0), city, 5)
 
         """ draw first 10 routes """
+        for route in routes:
+            pygame.draw.line(screen, (0, 255, 0), route[0], route[1], 2)
+
+        # draw text for city names
+        for name, location in city_locations_dict.items():
+            font = pygame.font.Font(None, 32)
+            text = font.render(name, True, (0, 0, 255))
+            screen.blit(text, location)
 
         pygame.display.flip()

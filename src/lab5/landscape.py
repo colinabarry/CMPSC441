@@ -8,7 +8,7 @@ def get_elevation(size):
 
     """Play around with perlin noise to get a better looking landscape (This is required for the lab)"""
 
-    noise = PerlinNoise(octaves=10, seed=1)
+    noise = PerlinNoise(octaves=10)
     elevation = []
     for i in range(xpix):
         row = []
