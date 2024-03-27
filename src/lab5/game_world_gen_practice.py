@@ -31,6 +31,14 @@ from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 
 """ Create helper functions here """
 
+
+def get_city_name_from_location(location, city_locations_dict) -> str:
+    for name, loc in city_locations_dict.items():
+        if loc == location:
+            return name
+    return None
+
+
 if __name__ == "__main__":
     pygame.init()
     size = width, height = 640, 480
@@ -65,6 +73,14 @@ if __name__ == "__main__":
     }
     random.shuffle(routes)
     routes = routes[:10]
+
+    # print routes by name
+    for route in routes:
+        print(
+            get_city_name_from_location(route[0], city_locations_dict),
+            "to",
+            get_city_name_from_location(route[1], city_locations_dict),
+        )
 
     while True:
         for event in pygame.event.get():
