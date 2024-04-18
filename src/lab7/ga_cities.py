@@ -23,7 +23,7 @@ sys.path.append(str((Path(__file__) / ".." / ".." / "..").resolve().absolute()))
 from src.lab5.landscape import elevation_to_rgba, get_elevation
 
 
-def game_fitness(solution, idx, elevation, size):
+def game_fitness(ga_inst, solution, idx, elevation, size):
     fitness = 0.0001  # Do not return a fitness of 0, it will mess up the algorithm.
     """
     Create your fitness function here to fulfill the following criteria:
@@ -32,39 +32,33 @@ def game_fitness(solution, idx, elevation, size):
     3. The cities may also not be on top of mountains or on top of each other
     """
     cities = solution_to_cities(solution, size)
+    water_threshold = 0.4
+    mountain_threshold = 0.6
 
-    for idx, city in enumerate(cities):
-        # print(city, idx)
+    for city_idx, city in enumerate(cities):
         # Reward for cities not under water
-        if elevation[city[0]][city[1]] > 0.3:
-            fitness += 0.3
+        if elevation[city[0]][city[1]] > water_threshold:
+            fitness += 0.3 / len(cities)
+        else:
+            fitness -= 0.5 / len(cities)
         # Reward for cities not on top of mountains
-        if elevation[city[0]][city[1]] < 0.7:
-            fitness += 0.3
+        if elevation[city[0]][city[1]] < mountain_threshold:
+            fitness += 0.3 / len(cities)
+        else:
+            fitness -= 0.5 / len(cities)
 
-    # Adjustment for cities based on distance to each other
+        # compare city location against all other cities
+        for i in range(len(cities)):
+            if i != city_idx:
+                dist = np.linalg.norm(cities[i] - city)
+                if dist == 0:
+                    fitness -= 0.5
+                elif dist < size[0] / (len(cities) * 2):
+                    fitness -= 0.1
+                else:
+                    fitness += 0.3 / len(cities * i)
 
-    dists_between_cities = {}
-    for i in range(len(cities)):
-        for j in range(i + 1, len(cities)):
-            # calc distance between cities
-            dist = np.linalg.norm(cities[i] - cities[j])
-            # print(i, "to", j, "is", dist)
-            dists_between_cities[(i, j)] = dist
-
-            if dist == 0:
-                fitness -= 0.1
-            elif dist > size[0] / (len(solution) * 2):
-                fitness += 0.01
-
-    # calc the mean of the distances
-    mean_dist = np.mean(list(dists_between_cities.values()))
-    # calculate the standard deviation of the distances
-    std_dev = np.std(list(dists_between_cities.values()))
-    # print(mean_dist, std_dev)
-
-    # print()
-    fitness = max(fitness, 0.0001)
+    fitness = max(min(fitness, 1.0), 0.0001)
     return fitness
 
 
@@ -158,7 +152,7 @@ if __name__ == "__main__":
 
     # setup fitness function and GA
     fitness = lambda ga_inst, solution, idx: game_fitness(
-        solution=solution, idx=idx, elevation=elevation, size=size
+        ga_inst=ga_inst, solution=solution, idx=idx, elevation=elevation, size=size
     )
     fitness_function, ga_instance = setup_GA(fitness, n_cities, size)
 
