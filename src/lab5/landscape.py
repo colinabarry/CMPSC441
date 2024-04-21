@@ -5,23 +5,19 @@ import numpy as np
 
 def get_elevation(size):
     xpix, ypix = size
-
+    elevation = np.array([])
     """Play around with perlin noise to get a better looking landscape (This is required for the lab)"""
-
-    noise = PerlinNoise(octaves=10)
-    elevation = []
-    for i in range(xpix):
-        row = []
-        for j in range(ypix):
-            row.append(noise([i / xpix, j / ypix]))
-        elevation.append(row)
-
-    return np.array(elevation, dtype=float)
+    noise = PerlinNoise(octaves=3, seed=2)
+    # elevation = np.random.random(size)
+    elevation = np.array(
+        [[noise([i / xpix, j / ypix]) for j in range(ypix)] for i in range(xpix)]
+    )
+    return elevation
 
 
-def elevation_to_rgba(elevation):
+def elevation_to_rgba(elevation, cmap="gist_earth"):
     xpix, ypix = np.array(elevation).shape
-    colormap = plt.cm.get_cmap("gist_earth")
+    colormap = plt.cm.get_cmap(cmap)
     elevation = (elevation - elevation.min()) / (elevation.max() - elevation.min())
     """ You can play around with colormap to get a landscape of your preference if you want """
     landscape = (
@@ -35,7 +31,6 @@ def elevation_to_rgba(elevation):
 
 
 get_landscape = lambda size: elevation_to_rgba(get_elevation(size))
-
 
 if __name__ == "__main__":
     size = 640, 480

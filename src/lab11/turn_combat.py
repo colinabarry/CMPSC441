@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
-from lab4.rock_paper_scissor import Player
+from lab4.player import Player
 
 weapons = ["Sword", "Arrow", "Fire"]
 
