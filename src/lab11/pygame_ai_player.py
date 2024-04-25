@@ -1,6 +1,6 @@
 import random
 from lab11.turn_combat import CombatPlayer
-from util import has_valid_route, routes_to_cities
+from lab11.util import has_valid_route, routes_to_cities
 
 
 """ Create PyGameAIPlayer class here"""

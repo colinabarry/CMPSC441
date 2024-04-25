@@ -17,6 +17,7 @@ class CombatPlayer(Player):
         self.health = 100
         self.weapon = 0
         self.current_env_state = None
+        self.action = None
 
     def selectAction(self, percept):
         """
@@ -31,9 +32,13 @@ class CombatPlayer(Player):
             self.current_env_state = env_state
 
         # ** Current round update **
-        self._action = self.weapon_selecting_strategy()
-        self.weapon = self._action
+        self.action = self.weapon_selecting_strategy()
+        # self._action = self.weapon_selecting_strategy()
+        self.weapon = self.action
+        # self.weapon = self._action
         self.my_choices.append(self.action)
+
+        return self.action
 
     def damage(self):
         points = 10
@@ -121,7 +126,7 @@ class Combat:
 def run_console_combat():
     # Setup Combat Objects
     currentGame = Combat()
-    human = Player("Mark")
+    human = CombatPlayer("Mark")
     computer = ComputerCombatPlayer("Computer")
 
     players = [human, computer]

@@ -18,16 +18,17 @@ class Player:
             self.opponent_choices.append(percept)
 
         # ** Current round update **
-        self._action = self.weapon_selecting_strategy()
+        self.action = self.weapon_selecting_strategy()
+        # self._action = self.weapon_selecting_strategy()
         self.my_choices.append(self.action)
 
-    @property
-    def action(self):
-        return self._action
+    # @property
+    # def action(self):
+    #     return self._action
 
-    @action.setter
-    def action(self, action):
-        self._action = action
+    # @action.setter
+    # def action(self, action):
+    #     self._action = action
 
     def weapon_selecting_strategy(self):
         return self.strategy()
