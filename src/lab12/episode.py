@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
+from lab11.turn_combat import CombatPlayer, Combat, ComputerCombatPlayer
+from lab11.pygame_ai_player import PyGameAICombatPlayer
+
 """ 
 Lab 12: Beginnings of Reinforcement Learning
 
@@ -7,15 +14,8 @@ As per RL conventions, the function should return a list of tuples
 of the form (observation/state, action, reward) for each turn in the episode.
 Note that observation/state is a tuple of the form (player1_health, player2_health).
 Action is simply the weapon selected by the player.  
-Reward is the reward for the player for that turn .
+Reward is the reward for the player for that turn.
 """
-
-import sys
-from pathlib import Path
-
-sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
-from lab11.turn_combat import CombatPlayer, Combat, ComputerCombatPlayer
-from lab11.pygame_ai_player import PyGameAICombatPlayer
 
 
 def run_episode(player1: CombatPlayer, player2: CombatPlayer):
@@ -33,9 +33,9 @@ def run_episode(player1: CombatPlayer, player2: CombatPlayer):
         episode_history.append((observation, action, reward))
 
         # Player 2's turn
-        observation = (player2.health, player1.health)
+        observation = (player1.health, player2.health)
         action = player2.selectAction(observation)
-        current_game.takeTurn(player2, player1)
+        current_game.takeTurn(player1, player2)
         reward = calculate_reward(player2.action, player1.action)
         episode_history.append((observation, action, reward))
 
@@ -45,15 +45,16 @@ def run_episode(player1: CombatPlayer, player2: CombatPlayer):
 
 
 def calculate_reward(action1, action2):
-    if action1 == action2:
-        return 0, 0
-    if action1 == 0 and action2 == 1:
-        return -1, 1
-    if action1 == 1 and action2 == 2:
-        return -1, 1
-    if action1 == 2 and action2 == 0:
-        return -1, 1
-    return 1, -1
+    if action1 == 0 and action2 == 2:  # Sword vs Fire
+        return 1
+    elif action1 == 1 and action2 == 0:  # Arrow vs Sword
+        return 1
+    elif action1 == 2 and action2 == 1:  # Fire vs Arrow
+        return 1
+    elif action1 == action2:  # Draw
+        return 0
+    else:
+        return -1
 
 
 if __name__ == "__main__":

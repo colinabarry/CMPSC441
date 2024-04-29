@@ -1,4 +1,4 @@
-'''
+"""
 Lab 13: My first AI agent.
 In this lab, you will create your first AI agent.
 You will use the run_episode function from lab 12 to run a number of episodes
@@ -11,7 +11,8 @@ Sidebar-
 If you reward every action you may end up in a situation where the agent
 will always choose the action that gives the highest reward. Ironically,
 this may lead to the agent losing the game.
-'''
+"""
+
 import sys
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from pathlib import Path
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 
 from lab11.pygame_combat import PyGameComputerCombatPlayer
+from lab11.pygame_combat import PyGameAICombatPlayer
 from lab11.turn_combat import CombatPlayer
 from lab12.episode import run_episode
 
@@ -65,15 +67,40 @@ def get_history_returns(history):
 
 
 def run_episodes(n_episodes):
-    ''' Run 'n_episodes' random episodes and return the action values for each state-action pair.
-        Action values are calculated as the average return for each state-action pair over the 'n_episodes' episodes.
-        Use the get_history_returns function to get the returns for each state-action pair in each episode.
-        Collect the returns for each state-action pair in a dictionary of dictionaries where the keys are states and
-            the values are dictionaries of actions and their returns.
-        After all episodes have been run, calculate the average return for each state-action pair.
-        Return the action values as a dictionary of dictionaries where the keys are states and 
-            the values are dictionaries of actions and their values.
-    '''
+    """
+    Run 'n_episodes' random episodes and return the action values for each state-action pair.
+    Action values are calculated as the average return for each state-action pair over the 'n_episodes' episodes.
+    Use the get_history_returns function to get the returns for each state-action pair in each episode.
+    Collect the returns for each state-action pair in a dictionary of dictionaries where the keys are states and
+        the values are dictionaries of actions and their returns.
+    After all episodes have been run, calculate the average return for each state-action pair.
+    Return the action values as a dictionary of dictionaries where the keys are states and
+        the values are dictionaries of actions and their values.
+    """
+    action_values = {}
+
+    for i in range(n_episodes):
+
+        player1 = PyGameAICombatPlayer("Player 1")
+        player2 = PyGameAICombatPlayer("Player 2")
+
+        episode_history = run_episode(player1, player2)
+        returns = get_history_returns(episode_history)
+
+        print(f"Episode {i + 1}/{n_episodes}")
+        for state, return_value in returns.items():
+            actions = return_value.keys()
+
+            for action in actions:
+                if action_values.get(state) is None:
+                    action_values[state] = {}
+                if action_values[state].get(action) is None:
+                    action_values[state][action] = float(0)
+                action_values[state][action] += float(return_value[action])
+
+    for state in action_values:
+        for action in action_values[state]:
+            action_values[state][action] /= float(n_episodes)
 
     return action_values
 
@@ -92,9 +119,7 @@ def test_policy(policy):
         player1 = PyGamePolicyCombatPlayer(names[0], policy)
         player2 = PyGameComputerCombatPlayer(names[1])
         players = [player1, player2]
-        total_reward += sum(
-            [reward for _, _, reward in run_episode(*players)]
-        )
+        total_reward += sum([reward for _, _, reward in run_episode(*players)])
     return total_reward / 100
 
 
