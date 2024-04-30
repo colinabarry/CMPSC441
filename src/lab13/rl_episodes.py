@@ -82,7 +82,7 @@ def run_episodes(n_episodes):
     for i in range(n_episodes):
 
         player1 = PyGameAICombatPlayer("Player 1")
-        player2 = PyGameAICombatPlayer("Player 2")
+        player2 = PyGameRandomCombatPlayer("Player 2")
 
         episode_history = run_episode(player1, player2)
         returns = get_history_returns(episode_history)
@@ -128,4 +128,4 @@ if __name__ == "__main__":
     print(action_values)
     optimal_policy = get_optimal_policy(action_values)
     print(optimal_policy)
-    print(test_policy(optimal_policy))
+    # print(test_policy(optimal_policy))

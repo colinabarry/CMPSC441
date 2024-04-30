@@ -51,7 +51,7 @@ def get_route_cost(
     path = [start]
     step = start
 
-    print(start, end)
+    # print(start, end)
 
     # Initialize the map with '-'
     map_size = game_map.shape
@@ -85,9 +85,9 @@ def get_route_cost(
         terrain_map[step] = str(step_count).rjust(3)
         step_count += 1
 
-    print(
-        np.array2string(terrain_map, separator="", formatter={"str_kind": lambda x: x})
-    )
+    # print(
+    #     np.array2string(terrain_map, separator="", formatter={"str_kind": lambda x: x})
+    # )
     return game_map[tuple(zip(*path))].sum()
 
 
@@ -126,7 +126,7 @@ def main():
         "Baernlad",
         "Forthyr",
     ]
-    map_size = 10, 20
+    map_size = 480, 360
 
     n_cities = len(city_names)
     game_map: NDArray[float_] = generate_terrain(map_size)
@@ -139,13 +139,11 @@ def main():
     np.random.shuffle(routes)
     routes = routes[:10]
     route_coordinates = route_to_coordinates(city_locations, city_names, routes)
-    print(route_coordinates)
+    # print(route_coordinates)
 
     for route, route_coordinate in zip(routes, route_coordinates):
         path = get_route_cost(route_coordinate, game_map)
         print(f"Cost between {route[0]} and {route[1]}: {path}")
-
-        print()
 
 
 if __name__ == "__main__":

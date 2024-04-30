@@ -1,4 +1,11 @@
-# Repository for Labs
-## CMPSC 441 and GAME 450
+# CMPSC 441 Final Project
 
-This repository will contain code for all the lab sessions for the course. New folders will be added to 'src' folder with the name of the lab. 
+## Abstract
+
+A game about an adventuring elf named Oillill trying to make money and survive on their journey to Evereska. The game is played automonously by an AI player, whose actions are woven into colorful prose by another AI!
+
+## AI Components
+
+## Problems Solved
+
+## Appendix

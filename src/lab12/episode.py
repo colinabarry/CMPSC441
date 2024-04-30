@@ -27,17 +27,25 @@ def run_episode(player1: CombatPlayer, player2: CombatPlayer):
     while not current_game.gameOver:
         # Player 1's turn
         observation = (player1.health, player2.health)
-        action = player1.selectAction(observation)
-        current_game.takeTurn(player1, player2)  # Execute turn using the Combat class
-        reward = calculate_reward(player1.action, player2.action)
-        episode_history.append((observation, action, reward))
+        player1_action = player1.selectAction(observation)
+        # current_game.takeTurn(player1, player2)  # Execute turn using the Combat class
+        # reward = calculate_reward(player1.action, player2.action)
+        # episode_history.append((observation, action, reward))
 
         # Player 2's turn
         observation = (player1.health, player2.health)
-        action = player2.selectAction(observation)
+        player2_action = player2.selectAction(observation)
         current_game.takeTurn(player1, player2)
-        reward = calculate_reward(player2.action, player1.action)
-        episode_history.append((observation, action, reward))
+        player1_reward = calculate_reward(player1.action, player2.action)
+        player2_reward = calculate_reward(player2.action, player1.action)
+        episode_history.append(
+            (
+                observation,
+                (player1_action, player2_action),
+                (player1_reward, player2_reward),
+            )
+        )
+        # episode_history.append((observation, action, reward))
 
         current_game.checkWin(player1, player2)
 
@@ -62,5 +70,5 @@ if __name__ == "__main__":
     player1 = PyGameAICombatPlayer("Player1")
     player2 = PyGameAICombatPlayer("Player2")
     episode = run_episode(player1, player2)
-    for turn in episode:
-        print(turn)
+    for i, turn in enumerate(episode):
+        print(i, turn)

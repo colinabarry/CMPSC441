@@ -32,7 +32,7 @@ from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 """ Create helper functions here """
 
 
-def get_city_name_from_location(location, city_locations_dict) -> str:
+def get_city_name_from_location(location, city_locations_dict):
     for name, loc in city_locations_dict.items():
         if loc == location:
             return name
@@ -67,6 +67,7 @@ if __name__ == "__main__":
     """ Setup cities and routes in here"""
     city_locations = get_randomly_spread_cities(size, len(city_names))
     routes = get_routes(city_locations)
+    print()
 
     city_locations_dict = {
         name: location for name, location in zip(city_names, city_locations)

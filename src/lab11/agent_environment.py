@@ -1,12 +1,12 @@
 import sys
 import pygame
 import random
-from sprite import Sprite
-from pygame_combat import run_pygame_combat
-from pygame_human_player import PyGameHumanPlayer
+from lab11.sprite import Sprite
+from lab11.pygame_combat import run_pygame_combat
+from lab11.pygame_human_player import PyGameHumanPlayer
 from lab5.landscape import get_landscape, elevation_to_rgba, get_elevation
-from pygame_ai_player import PyGameAIPlayer
-from util import has_valid_route
+from lab11.pygame_ai_player import PyGameAIPlayer
+from lab11.util import has_valid_route
 
 from pathlib import Path
 
