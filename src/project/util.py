@@ -24,6 +24,8 @@ def has_valid_route(state, action, city_from=None):
 def routes_to_cities(state):
     cities = []
     for route in state.routes:
+        print("route", route)
+        print("state.cities", state.cities)
         start = route[0]
         end = route[1]
 
@@ -34,6 +36,6 @@ def routes_to_cities(state):
 
 def get_city_name_from_location(location, city_locations_dict):
     for name, loc in city_locations_dict.items():
-        if loc == location:
+        if tuple(loc) == tuple(location):
             return name
     return None

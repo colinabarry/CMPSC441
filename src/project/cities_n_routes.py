@@ -5,8 +5,12 @@ In the final project, you will need a bunch of cities spread across a map. Here 
 will generate a bunch of cities and all possible routes between them.
 """
 
+from calendar import c
 import random
 import itertools
+
+import numpy as np
+from ga_cities import game_fitness, setup_GA, solution_to_cities
 from util import has_valid_route, routes_to_cities, get_city_name_from_location
 
 
@@ -43,7 +47,6 @@ def get_routes(cities):
 
 def get_path_to_city(cities, routes, start, end):
     """Finds a valid route between specified start and end cities.
-
     Args:
         cities: A list of cities as tuples of coordinates [(x, y)]
         routes: A list of valid routes between cities [((x1, y1), (x2, y2))]
@@ -82,12 +85,89 @@ def get_path_to_city(cities, routes, start, end):
 def find_neighbors(city, routes):
     """Helper to find cities with a direct route from the given city"""
     neighbors = []
+    routes = [(tuple(route[0]), tuple(route[1])) for route in routes]
+
     for route in routes:
+        # print("route[0]", route[0], "city", city)
         if route[0] == city:
             neighbors.append(route[1])
         elif route[1] == city:
             neighbors.append(route[0])
     return neighbors
+
+
+def setup_routes(city_locations):
+    routes = get_routes(city_locations)
+    random.shuffle(routes)
+    routes = routes[:10]
+    return routes
+
+
+def setup_cities_and_routes(size, city_names, landscape):
+    city_locations = []
+    routes = []
+
+    city_locations = get_randomly_spread_cities(size, len(city_names))
+    # print("initial city locations", city_locations)
+
+    landscape = np.array(landscape)
+    landscape = (landscape - landscape.min()) / (landscape.max() - landscape.min())
+
+    fitness = lambda ga_inst, solution, idx: game_fitness(
+        ga_inst=ga_inst, solution=solution, idx=idx, elevation=landscape, size=size
+    )
+    fitness_function, ga_instance = setup_GA(fitness, len(city_names), size)
+
+    # Show one of the initial solutions.
+    # random_solution = ga_instance.initial_population[0]
+    # cities = solution_to_cities(random_solution, size)
+
+    # Run the GA to optimize the parameters of the function.
+    ga_instance.run()
+    # ga_instance.plot_fitness()
+    # print("Final Population")
+
+    # Show the best solution after the GA finishes running.
+    best_solution = ga_instance.best_solution()[0]
+    # print("best solution: ", best_solution)
+    city_locations = solution_to_cities(best_solution, size)
+    # print("city locations: ", city_locations)
+    # print(fitness_function(ga_inst=ga_instance, solution=city_locations, idx=0))
+
+    city_locations_dict = {
+        name: location for name, location in zip(city_names, city_locations)
+    }
+
+    routes = setup_routes(city_locations)
+
+    return city_locations, routes, city_locations_dict
+
+
+def setup_path(size, city_names, city_locations, routes, min_path_length=5):
+    city_locations_copy = [tuple(city) for city in city_locations]
+    # print("city locations_copy", city_locations_copy)
+
+    start = random.choice(city_locations_copy)
+    # print("start", start)
+    city_locations_copy.remove(start)
+
+    end = random.choice(city_locations_copy)
+    # print("end", end)
+    city_locations_copy.remove(end)
+
+    path = get_path_to_city(city_locations, routes, start, end)
+
+    while path is None or len(path) < min_path_length:
+        # print("invalid path, trying again")
+        if len(city_locations_copy) < 1:
+            routes = setup_routes(city_locations)
+            city_locations_copy = [tuple(city) for city in city_locations]
+        end = random.choice(city_locations_copy)
+        # city_locations_copy = np.delete(city_locations_copy, end)
+        city_locations_copy.remove(end)
+        path = get_path_to_city(city_locations, routes, start, end)
+
+    return path, routes
 
 
 # TODO: Fix variable names

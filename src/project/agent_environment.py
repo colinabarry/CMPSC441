@@ -4,20 +4,16 @@ import random
 from sprite import Sprite
 from pygame_combat import run_pygame_combat
 from pygame_human_player import PyGameHumanPlayer
-from lab5.landscape import get_landscape, elevation_to_rgba, get_elevation
+from landscape import get_landscape, elevation_to_rgba, get_elevation
 from pygame_ai_player import PyGameAIPlayer
 from util import has_valid_route
+from cities_n_routes import get_randomly_spread_cities, get_routes
 
-from pathlib import Path
-
-sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
-
-from lab2.cities_n_routes import get_randomly_spread_cities, get_routes
 
 get_combat_bg = lambda pixel_map: elevation_to_rgba(get_elevation(pixel_map), "RdPu")
 
 pygame.font.init()
-game_font = pygame.font.SysFont("Comic Sans MS", 15)
+game_font = pygame.font.Font(None, 32)
 
 
 def get_landscape_surface(size):
@@ -41,7 +37,7 @@ def setup_window(width, height, caption):
     return window
 
 
-def displayCityNames(city_locations, city_names):
+def displayCityNames(city_locations, city_names, screen):
     for i, name in enumerate(city_names):
         text_surface = game_font.render(str(i) + " " + name, True, (0, 0, 150))
         screen.blit(text_surface, city_locations[i])
@@ -56,6 +52,7 @@ class State:
         encounter_event,
         cities,
         routes,
+        money,
     ):
         self.current_city = current_city
         self.destination_city = destination_city
@@ -63,6 +60,7 @@ class State:
         self.encounter_event = encounter_event
         self.cities = cities
         self.routes = routes
+        self.money = money
 
 
 if __name__ == "__main__":
@@ -113,6 +111,7 @@ if __name__ == "__main__":
         encounter_event=False,
         cities=city_locations,
         routes=routes,
+        money=100,
     )
 
     while True:

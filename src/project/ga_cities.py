@@ -11,19 +11,22 @@ Please comment your code in the fitness function to explain how are you making s
 fulfilled. Clearly explain in comments which line of code and variables are used to fulfill each criterion.
 """
 
+from calendar import c
+from math import sqrt
 import matplotlib.pyplot as plt
+from py import std
 import pygad
 import numpy as np
-
 import sys
 from pathlib import Path
 
-sys.path.append(str((Path(__file__) / ".." / ".." / "..").resolve().absolute()))
+from python_utils import remap
 
-from src.lab5.landscape import elevation_to_rgba, get_elevation
+from landscape import elevation_to_rgba, get_elevation
+from util import get_city_name_from_location
 
 
-def game_fitness(ga_inst, solution, idx, elevation, size):
+def game_fitness(ga_inst: pygad.GA, solution, idx, elevation, size):
     fitness = 0.0001  # Do not return a fitness of 0, it will mess up the algorithm.
     """
     Create your fitness function here to fulfill the following criteria:
@@ -31,34 +34,51 @@ def game_fitness(ga_inst, solution, idx, elevation, size):
     2. The cities should have a realistic distribution across the landscape
     3. The cities may also not be on top of mountains or on top of each other
     """
-    cities = solution_to_cities(solution, size)
-    water_threshold = 0.45
-    mountain_threshold = 0.55
+    gen = ga_inst.generations_completed
+    # if gen >= 149:
+    #     print("gen: ", gen, solution)
 
-    for city_idx, city in enumerate(cities):
-        # Reward for cities not under water
-        if elevation[city[0]][city[1]] > water_threshold:
-            fitness += 0.3 / len(cities)
-        else:
-            fitness -= 0.5 / len(cities)
-        # Reward for cities not on top of mountains
-        if elevation[city[0]][city[1]] < mountain_threshold:
-            fitness += 0.3 / len(cities)
-        else:
-            fitness -= 0.5 / len(cities)
+    if gen < 150:
+        cities = solution_to_cities(solution, size)
+        water_threshold = 0.4
+        mountain_threshold = 0.6
 
-        # compare city location against all other cities
-        for i in range(len(cities)):
-            if i != city_idx:
-                dist = np.linalg.norm(cities[i] - city)
-                if dist == 0:
-                    fitness -= 0.5
-                elif dist < size[0] / (len(cities) * 2):
-                    fitness -= 0.1
-                else:
-                    fitness += 0.3 / len(cities * i)
+        for city_idx, city in enumerate(cities):
+            # Reward for cities not under water
+            if elevation[city[0]][city[1]] > water_threshold:
+                fitness += 0.3 / len(cities)
+            else:
+                fitness -= 0.5 / len(cities)
+            # Reward for cities not on top of mountains
+            if elevation[city[0]][city[1]] < mountain_threshold:
+                fitness += 0.3 / len(cities)
+            else:
+                fitness -= 0.5 / len(cities)
 
-    fitness = max(min(fitness, 1.0), 0.0001)
+            total_dist = []
+            # compare city location against all other cities
+            for i in range(len(cities)):
+                if i != city_idx:
+                    dist = np.linalg.norm(cities[i] - city)
+                    total_dist.append(dist)
+
+                    if dist < 5:
+                        fitness -= 1 / len(cities)
+                    elif dist < size[0] / sqrt(len(cities)):
+                        fitness -= 0.5 / len(cities)
+                    else:
+                        fitness += 0.75 / len(cities)
+
+        # avg_dist = np.mean(total_dist)
+        # std_dist = np.std(total_dist)
+
+        # if gen % 50 == 0:
+        #     print("gen ", ga_inst.generations_completed, "fitness: ", fitness)
+        #     print("avg dist", avg_dist, "std", std_dist)
+        #     print()
+
+    fitness = max(fitness, 0.0001)
+
     return fitness
 
 
@@ -72,7 +92,7 @@ def setup_GA(fitness_fn, n_cities, size):
     :param size: The size of the grid
     :return: The fitness function and the GA instance.
     """
-    num_generations = 100
+    num_generations = 150
     num_parents_mating = 10
 
     solutions_per_population = 300
@@ -87,7 +107,7 @@ def setup_GA(fitness_fn, n_cities, size):
     crossover_type = "single_point"
 
     mutation_type = "random"
-    mutation_percent_genes = 10
+    mutation_percent_genes = 15
 
     ga_instance = pygad.GA(
         num_generations=num_generations,
