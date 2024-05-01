@@ -5,17 +5,18 @@ import pygame
 import random
 
 from cities_n_routes import setup_cities_and_routes, setup_path
+from pygame_combat import run_pygame_combat
 from pygame_ai_player import PyGameAIPlayer
 from util import has_valid_route, get_city_name_from_location
 from landscape import get_elevation, elevation_to_rgba
-from project.sprite import Sprite
+from sprite import Sprite
 from agent_environment import get_combat_surface, setup_window, displayCityNames, State
 from travel_cost import get_route_cost
 
 
 def main():
     size = width, height = (720, 720)
-    # size = width, height = (128, 72)
+    # size = width, height = (72, 72)
     window = setup_window(width, height, "CMPSC 441 Final Project")
 
     screen = pygame.display.set_mode(size)
@@ -57,6 +58,7 @@ def main():
         "Path: ",
         [get_city_name_from_location(city, city_locations_dict) for city in path],
     )
+    print(path)
 
     print(
         "Cost of path: ",
@@ -65,23 +67,37 @@ def main():
         ),
     )
 
+    print()
+
     player_sprite = Sprite("assets/lego.png", path[0])
     player = PyGameAIPlayer()
 
+    print("city locations", city_locations)
+
+    start_city = city_locations.index(path[0])
+    end_city = city_locations.index(path[-1])
+
+    print("start city", start_city)
+    print("end city", end_city)
+
     state = State(
-        current_city=np.where(city_locations == path[0]),
-        destination_city=np.where(city_locations == path[-1]),
+        current_city=start_city,
+        destination_city=end_city,
         travelling=False,
         encounter_event=False,
-        cities=city_names,
+        cities=city_locations,
         routes=routes,
-        money=100,
+        money=500,
     )
+
+    path.pop(0)
 
     # game loop
     while True:
-        action = player.selectAction(state)
-        print("looped")
+        # action = player.selectAction(state)
+        if len(path) > 0:
+            action = ord(str(city_locations.index(path[0])))
+        # print("looped")
         if 0 <= int(chr(action)) <= 9:
             if int(chr(action)) != state.current_city and not state.travelling:
                 """
@@ -92,13 +108,34 @@ def main():
                         "No route between", state.current_city, "and", int(chr(action))
                     )
                     continue
+                route_cost = get_route_cost(
+                    [
+                        city_locations[state.current_city],
+                        city_locations[state.destination_city],
+                    ],
+                    (elevation - elevation.min()) / (elevation.max() - elevation.min()),
+                )
+                print("cost", route_cost)
+                if route_cost > state.money:
+                    print(
+                        "Not enough money to travel to",
+                        city_names[state.destination_city],
+                        ". You lose!",
+                    )
+                    break
                 start = city_locations[state.current_city]
                 state.destination_city = int(chr(action))
                 destination = city_locations[state.destination_city]
                 player_sprite.set_location(city_locations[state.current_city])
                 state.travelling = True
+                path.pop(0)
+                state.money -= route_cost
+                print("Money after travel:", state.money)
                 print(
-                    "Travelling from", state.current_city, "to", state.destination_city
+                    "Travelling from",
+                    city_names[state.current_city],
+                    "to",
+                    city_names[state.destination_city],
                 )
         # for event in pygame.event.get():
         #     if event.type == pygame.QUIT:
@@ -131,7 +168,33 @@ def main():
         text = font.render("Money: " + str(state.money), True, (255, 255, 255))
         screen.blit(text, (width / 2 - text.get_width() / 2, 10))
 
-        pygame.display.flip()
+        if state.travelling:
+            state.travelling = player_sprite.move_sprite(destination, 1)
+            state.encounter_event = random.randint(0, 1000) < 2
+            if not state.travelling:
+                print("Arrived at", city_names[state.destination_city])
+
+        if not state.travelling:
+            encounter_event = False
+            state.current_city = state.destination_city
+
+        player_won = None
+        if state.encounter_event:
+            player_won = run_pygame_combat(combat_surface, screen, player_sprite)
+            state.encounter_event = False
+            if not player_won:
+                print("You lost the combat! Game over!")
+                break
+            else:
+                state.money += 250
+        else:
+            player_sprite.draw_sprite(screen)
+        pygame.display.update()
+        if state.current_city == end_city:
+            print("You have reached the end of the game!")
+            break
+
+        # pygame.display.flip()
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ from numpy import float_
 
 def get_route_cost(
     route_coordinate: list[tuple[int, int]], game_map: NDArray[float_]
-) -> float:
+) -> int:
     """
     This function takes in a route_coordinate as a tuple of coordinates of cities to connect,
     example:  and a game_map as a numpy array of floats,

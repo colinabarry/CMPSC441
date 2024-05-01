@@ -145,7 +145,7 @@ if __name__ == "__main__":
         for line in routes:
             pygame.draw.line(screen, (255, 0, 0), *line)
 
-        displayCityNames(city_locations, city_names)
+        displayCityNames(city_locations, city_names, screen)
         if state.travelling:
             state.travelling = player_sprite.move_sprite(destination, sprite_speed)
             state.encounter_event = random.randint(0, 1000) < 2

@@ -140,7 +140,11 @@ def setup_cities_and_routes(size, city_names, landscape):
 
     routes = setup_routes(city_locations)
 
-    return city_locations, routes, city_locations_dict
+    return (
+        [tuple(city) for city in city_locations],
+        [(tuple(route[0]), tuple(route[1])) for route in routes],
+        city_locations_dict,
+    )
 
 
 def setup_path(size, city_names, city_locations, routes, min_path_length=5):

@@ -65,6 +65,7 @@ class PyGameAICombatPlayer(CombatPlayer):
         super().__init__(name)
 
     def weapon_selecting_strategy(self):
+        print(self.current_env_state)
         choice = random.randint(1, 3)
         self.weapon = choice - 1
         return self.weapon

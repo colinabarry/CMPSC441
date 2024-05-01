@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def has_valid_route(state, action, city_from=None):
     if city_from is None:
         city_from = state.current_city
@@ -7,6 +10,9 @@ def has_valid_route(state, action, city_from=None):
     if 0 <= action_value <= 9:
         if action_value != state.current_city:
             city_routes = routes_to_cities(state)
+            # print("city_routes", city_routes)
+            # print("city_from", city_from)
+            # print("action_value", action_value)
 
             if (
                 city_from,
@@ -24,13 +30,17 @@ def has_valid_route(state, action, city_from=None):
 def routes_to_cities(state):
     cities = []
     for route in state.routes:
-        print("route", route)
-        print("state.cities", state.cities)
+        # print("route", route)
+        # print("state.cities", state.cities)
         start = route[0]
         end = route[1]
 
         if start in state.cities and end in state.cities:
             cities.append((state.cities.index(start), state.cities.index(end)))
+            # cities.append(
+            #     (np.where(state.cities == start), np.where(state.cities == end))
+            # )
+
     return cities
 
 
