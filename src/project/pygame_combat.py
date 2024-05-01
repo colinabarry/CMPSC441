@@ -1,3 +1,4 @@
+from os import wait
 import pygame
 from pathlib import Path
 
@@ -5,6 +6,7 @@ from sprite import Sprite
 from turn_combat import CombatPlayer, Combat
 from pygame_ai_player import PyGameAICombatPlayer
 from pygame_human_player import PyGameHumanCombatPlayer
+from util import write_to_timestamp_file
 
 AI_SPRITE_PATH = Path("assets/ai.png")
 
@@ -35,20 +37,29 @@ def draw_combat_on_window(combat_surface, screen, player_sprite, opponent_sprite
     pygame.display.update()
 
 
-def run_turn(currentGame, player, opponent):
+def run_turn(currentGame, player, opponent, timestamp_file):
     players = [player, opponent]
     states = list([tuple(player.health for player in players)] * 2)
     for current_player, state in zip(players, states):
         current_player.selectAction(state)
 
     currentGame.newRound()
-    currentGame.takeTurn(player, opponent)
+    currentGame.takeTurn(player, opponent, timestamp_file)
     print("%s's health = %d" % (player.name, player.health))
+    write_to_timestamp_file(
+        timestamp_file, "%s's health = %d" % (player.name, player.health)
+    )
+
     print("%s's health = %d" % (opponent.name, opponent.health))
+    write_to_timestamp_file(
+        timestamp_file, "%s's health = %d" % (opponent.name, opponent.health)
+    )
     reward = currentGame.checkWin(player, opponent)
 
+    # pygame.time.wait(50)
 
-def run_pygame_combat(combat_surface, screen, player_sprite):
+
+def run_pygame_combat(combat_surface, screen, player_sprite, timestamp_file):
     currentGame = Combat()
 
     player = PyGameAICombatPlayer("Oillill")
@@ -62,6 +73,6 @@ def run_pygame_combat(combat_surface, screen, player_sprite):
     while not currentGame.gameOver:
         draw_combat_on_window(combat_surface, screen, player_sprite, opponent_sprite)
 
-        run_turn(currentGame, player, opponent)
+        run_turn(currentGame, player, opponent, timestamp_file)
 
     return currentGame.playerWon

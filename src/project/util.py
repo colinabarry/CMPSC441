@@ -49,3 +49,9 @@ def get_city_name_from_location(location, city_locations_dict):
         if tuple(loc) == tuple(location):
             return name
     return None
+
+
+def write_to_timestamp_file(file_name, data):
+    with open(file_name, "a") as file:
+        file.write(data)
+        file.write("\n")

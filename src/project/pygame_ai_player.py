@@ -65,7 +65,17 @@ class PyGameAICombatPlayer(CombatPlayer):
         super().__init__(name)
 
     def weapon_selecting_strategy(self):
-        print(self.current_env_state)
-        choice = random.randint(1, 3)
-        self.weapon = choice - 1
+        epsilon = 0.5
+
+        if random.random() < epsilon:  # sometimes make a random choice
+            self.weapon = random.randint(0, 2)
+        else:  # otherwise, slaughter
+            opponent_health = self.current_env_state[1]
+            if 30 < opponent_health <= 50:
+                self.weapon = 0
+            elif opponent_health <= 30:
+                self.weapon = 2
+            else:
+                self.weapon = 1
+
         return self.weapon

@@ -3,6 +3,7 @@ import random
 import pygame
 import sys
 from pathlib import Path
+from util import write_to_timestamp_file
 
 sys.path.append(str((Path(__file__) / ".." / "..").resolve().absolute()))
 from lab4.player import Player
@@ -90,9 +91,9 @@ class Combat:
             return 0
         return 0
 
-    def displayResult(self, player, opponent):
+    def displayResult(self, player, opponent, damaged, timestamp_file):
         print(
-            "%s used a %s, %s used a %s \n"
+            "%s used %s, %s used %s"
             % (
                 player.name,
                 weapons[player.weapon],
@@ -100,9 +101,24 @@ class Combat:
                 weapons[opponent.weapon],
             )
         )
-        print("%s caused damage to %s\n" % (player.name, opponent.name))
+        write_to_timestamp_file(
+            timestamp_file,
+            "%s used %s, %s used %s"
+            % (
+                player.name,
+                weapons[player.weapon],
+                opponent.name,
+                weapons[opponent.weapon],
+            ),
+        )
 
-    def takeTurn(self, player, opponent):
+        # print("damaged: ", damaged)
+        if damaged[0]:
+            print("%s caused damage to %s" % (player.name, opponent.name))
+        if damaged[1]:
+            print("%s caused damage to %s" % (opponent.name, player.name))
+
+    def takeTurn(self, player, opponent, timestamp_file):
 
         # Decision Array
         #
@@ -117,14 +133,24 @@ class Combat:
             [True, True, False],  # Arrow
             [False, True, True],  # Fire
         ]
-        print(
-            f"\n{player.name} used {weapons[player.weapon]}, {opponent.name} used {weapons[opponent.weapon]}"
-        )
+
+        # print(
+        #     f"{player.name} used {weapons[player.weapon]}, {opponent.name} used {weapons[opponent.weapon]}"
+        # )
+        opponent_damaged = False
+        player_damaged = False
+
         if decisionArray[player.weapon][opponent.weapon]:
             opponent.damage()
+            opponent_damaged = True
 
         if decisionArray[opponent.weapon][player.weapon]:
             player.damage()
+            player_damaged = True
+
+        self.displayResult(
+            player, opponent, (player_damaged, opponent_damaged), timestamp_file
+        )
 
 
 def run_console_combat():

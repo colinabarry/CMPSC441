@@ -38,6 +38,14 @@ class Storyteller:
             ]
         )
 
+    def generate_full_story(self, full_log):
+        return self.generate_text(
+            [
+                "create a long, detailed narrative based on the following combat and travel logs. invent a backstory and motivation for Oillill, and describe the setting and combat encountered. the term 'computer' should be replaced with a more appropriate enemy name for a fantasy medieval setting. pay attention to health results at the end of combat and money spent and earned. log follows: ",
+                full_log,
+            ]
+        )
+
 
 if __name__ == "__main__":
     storyteller = Storyteller()

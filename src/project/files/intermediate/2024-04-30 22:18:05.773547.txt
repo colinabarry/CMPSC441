@@ -1,0 +1,375 @@
+
+money before travel: 500
+cost to travel to Londathrad: 10
+Travelling from Rhunkadi to Eregailin
+Money after travel: 490
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Sword, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 100
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 100
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 0
+You won the combat! Money after combat:740
+
+Arrived at Eregailin
+
+money before travel: 740
+cost to travel to Eregailin: 0
+Travelling from Eregailin to Morkomasto
+Money after travel: 740
+
+Combat encounter started!
+Oillill used Sword, Computer used Sword
+Oillill's health = 100
+Computer's health = 100
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Fire, Computer used Sword
+Oillill's health = 90
+Computer's health = 80
+Oillill used Fire, Computer used Sword
+Oillill's health = 80
+Computer's health = 80
+Oillill used Fire, Computer used Sword
+Oillill's health = 70
+Computer's health = 80
+Oillill used Fire, Computer used Sword
+Oillill's health = 60
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 60
+Computer's health = 70
+Oillill used Sword, Computer used Sword
+Oillill's health = 60
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 60
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 60
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 60
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 60
+Computer's health = 30
+Oillill used Arrow, Computer used Arrow
+Oillill's health = 50
+Computer's health = 20
+Oillill used Arrow, Computer used Arrow
+Oillill's health = 40
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 40
+Computer's health = 0
+You won the combat! Money after combat:990
+
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Sword, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 70
+Oillill used Fire, Computer used Sword
+Oillill's health = 90
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 50
+Oillill used Arrow, Computer used Fire
+Oillill's health = 80
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 80
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 80
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 80
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 80
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 80
+Computer's health = 0
+You won the combat! Money after combat:1240
+
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Fire, Computer used Sword
+Oillill's health = 90
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 0
+You won the combat! Money after combat:1490
+
+Arrived at Morkomasto
+
+money before travel: 1490
+cost to travel to Morkomasto: 0
+Travelling from Morkomasto to Eregarta
+Money after travel: 1490
+Arrived at Eregarta
+
+money before travel: 1490
+cost to travel to Eregarta: 0
+Travelling from Eregarta to Corathrad
+Money after travel: 1490
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Fire, Computer used Sword
+Oillill's health = 90
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 70
+Oillill used Fire, Computer used Sword
+Oillill's health = 80
+Computer's health = 70
+Oillill used Fire, Computer used Sword
+Oillill's health = 70
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 70
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 70
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 70
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 70
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 70
+Computer's health = 20
+Oillill used Sword, Computer used Arrow
+Oillill's health = 60
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 60
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 60
+Computer's health = 0
+You won the combat! Money after combat:1740
+
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Sword, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Fire, Computer used Sword
+Oillill's health = 90
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 70
+Oillill used Sword, Computer used Sword
+Oillill's health = 90
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 90
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 90
+Computer's health = 0
+You won the combat! Money after combat:1990
+
+Arrived at Corathrad
+
+money before travel: 1990
+cost to travel to Corathrad: 0
+Travelling from Corathrad to Baernlad
+Money after travel: 1990
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 100
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 100
+Computer's health = 30
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 100
+Computer's health = 0
+You won the combat! Money after combat:2240
+
+Arrived at Baernlad
+
+money before travel: 2240
+cost to travel to Baernlad: 0
+Travelling from Baernlad to Londathrad
+Money after travel: 2240
+
+Combat encounter started!
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 90
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 80
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 70
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 60
+Oillill used Arrow, Computer used Sword
+Oillill's health = 100
+Computer's health = 50
+Oillill used Arrow, Computer used Fire
+Oillill's health = 90
+Computer's health = 50
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 40
+Oillill used Sword, Computer used Fire
+Oillill's health = 90
+Computer's health = 30
+Oillill used Arrow, Computer used Arrow
+Oillill's health = 80
+Computer's health = 20
+Oillill used Sword, Computer used Arrow
+Oillill's health = 70
+Computer's health = 20
+Oillill used Sword, Computer used Arrow
+Oillill's health = 60
+Computer's health = 20
+Oillill used Sword, Computer used Arrow
+Oillill's health = 50
+Computer's health = 20
+Oillill used Fire, Computer used Arrow
+Oillill's health = 50
+Computer's health = 10
+Oillill used Fire, Computer used Arrow
+Oillill's health = 50
+Computer's health = 0
+You won the combat! Money after combat:2490
+
+Arrived at Londathrad
+You have reached the end of the game!
